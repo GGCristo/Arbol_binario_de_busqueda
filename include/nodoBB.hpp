@@ -1,6 +1,7 @@
 #ifndef _nodoBB_
 #define _nodoBB_
 
+#include <iostream>
 
 template<class Clave>
 class nodoBB
@@ -24,9 +25,28 @@ class nodoBB
     nodoBB<Clave>* Buscar(Clave X)
     {
       if (Valor_ == X) return this;
-      if (hijo_l && x < Valor_) return hijo_l->Buscar(X);
-      if (hijo_r && x > Valor_) return hijo_r->Buscar(X);
+      if (hijo_l && X < Valor_) return hijo_l->Buscar(X);
+      if (hijo_r && X > Valor_) return hijo_r->Buscar(X);
       return nullptr;
+    }
+    void Insertar(Clave X)
+    {
+      if (X < Valor_)
+      {
+        if (hijo_l) hijo_l->Buscar(X);
+        else hijo_l = new nodoBB<Clave>(X);
+      }
+      else if (X > Valor_)
+      {
+        if (hijo_r) hijo_r->Buscar(X);
+        else hijo_r = new nodoBB<Clave>(X);
+      }
+      else
+        std::cout << "Se ha intentado meter el elemento " << X << " pero ya estaba en el árbol" << '\n';
+    }
+    void Eliminar()
+    {
+      delete this;
     }
 };
 

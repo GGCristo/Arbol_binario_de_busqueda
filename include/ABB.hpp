@@ -12,16 +12,29 @@ class ABB
     unsigned int nivel;
     nodoBB<Clave>* raiz;
   public:
+    ABB()
+    {
+      nivel = 0;
+      raiz = nullptr;
+    }
     void Buscar (Clave X)
     {
       raiz->Buscar(X);
     }
     void Insertar (Clave X)
     {
-      if (nivel == 0)
+      if (!raiz)
       {
         raiz = new nodoBB<Clave>;
       }
+      else
+      {
+        raiz->Insertar(X);
+      }
+    }
+    void Eliminar ()
+    {
+
     }
     void Eliminar (Clave X);
 };
