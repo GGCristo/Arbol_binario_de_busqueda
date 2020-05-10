@@ -15,6 +15,6 @@ int Demostracion()
     std::cin >> opcion;
   } while (opcion != 0 && opcion != 1 && opcion != 2);
 
-  Arbol.Insertar(DNI());
+  Arbol.Buscar(DNI());
   return 0;
 }

@@ -7,20 +7,26 @@ class nodoBB
 {
   private:
     Clave Valor_;
-    nodoBB<Clave>* nodo;
-    nodoBB<Clave>* hijo1;
-    nodoBB<Clave>* hijo2;
+    nodoBB<Clave>* hijo_l;
+    nodoBB<Clave>* hijo_r;
   public:
     nodoBB()
     {
-      hijo1 = nullptr;
-      hijo2 = nullptr;
+      hijo_l = nullptr;
+      hijo_r = nullptr;
     }
     nodoBB(const Clave& Valor)
     {
       Valor_ = Valor;
-      hijo1 = nullptr;
-      hijo2 = nullptr;
+      hijo_l = nullptr;
+      hijo_r = nullptr;
+    }
+    nodoBB<Clave>* Buscar(Clave X)
+    {
+      if (Valor_ == X) return this;
+      if (hijo_l && x < Valor_) return hijo_l->Buscar(X);
+      if (hijo_r && x > Valor_) return hijo_r->Buscar(X);
+      return nullptr;
     }
 };
 

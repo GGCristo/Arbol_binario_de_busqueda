@@ -12,7 +12,10 @@ class ABB
     unsigned int nivel;
     nodoBB<Clave>* raiz;
   public:
-    void Buscar (Clave X);
+    void Buscar (Clave X)
+    {
+      raiz->Buscar(X);
+    }
     void Insertar (Clave X)
     {
       if (nivel == 0)
