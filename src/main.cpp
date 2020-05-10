@@ -1,5 +1,10 @@
 #include <iostream>
+#include "../include/DNI.hpp"
+
 int Demostracion();
+
+bool::DNI::MODO = true;
+unsigned DNI::CONTADOR = 0;
 
 int main()
 {
@@ -11,6 +16,7 @@ int main()
     std::cout << "[1] Estadística" << '\n';
     std::cin >> modo;
   } while (modo != 0 && modo != 1);
-  Demostracion();
+
+  if (modo == 0) Demostracion();
   return 0;
 }

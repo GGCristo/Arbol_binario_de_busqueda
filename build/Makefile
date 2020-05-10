@@ -4,7 +4,7 @@ TEST = $(wildcard ../test/*.cpp)
 TESTBIN = $(patsubst ../test/%.cpp, ../bin/%, $(TEST))
 SRC = $(wildcard ../src/*.cpp)
 OBJS = $(patsubst ../src/%.cpp, %.o, $(SRC))
-HEADER =  #Escribe aquí el nombre de las clases o fichero de funciones con template
+HEADER =  ABB nodoBB #Escribe aquí el nombre de las clases o fichero de funciones con template
 HEADER := $(patsubst %, ../include/%.hpp, $(HEADER))
 CFLAGS = -g -pedantic-errors -Wall -Wextra  -std=c++17 -fsanitize=address -static-libasan
 
