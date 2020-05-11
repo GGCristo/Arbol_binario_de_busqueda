@@ -8,6 +8,11 @@ DNI::DNI ()
   Valor_ = rand() % 100;
 }
 
+DNI::DNI(const unsigned long& Valor)
+{
+  Valor_ = Valor;
+}
+
 void DNI::operator = (const int& valor)
 {
   Valor_ = valor;
@@ -15,60 +20,41 @@ void DNI::operator = (const int& valor)
 
 bool DNI::operator < (const DNI& dni)
 {
-  if (DNI::MODO)
-  {
-    std::cin.get();
-    if (DNI::MODO) std::cout << "Se compara el valor " << Valor_ << " con " << dni.Valor_ << '\n';
-  }
-  else
-    CONTADOR++;
+  operar_modo(dni);
   return Valor_ < dni.Valor_;
 }
 
 bool DNI::operator <= (const DNI& dni)
 {
-  if (DNI::MODO)
-  {
-    std::cin.get();
-    std::cout << "Se compara el valor " << Valor_ << " con " << dni.Valor_ << '\n';
-  }
-  else
-    CONTADOR++;
+  operar_modo(dni);
   return Valor_ <= dni.Valor_;
 }
 
 bool DNI::operator > (const DNI& dni)
 {
-  if (DNI::MODO)
-  {
-    std::cin.get();
-    std::cout << "Se compara el valor " << Valor_ << " con " << dni.Valor_ << '\n';
-  }
-  else
-    CONTADOR++;
+  operar_modo(dni);
   return Valor_ > dni.Valor_;
 }
 
 bool DNI::operator >= (const DNI& dni)
 {
-  if (DNI::MODO)
-  {
-    std::cin.get();
-    std::cout << "Se compara el valor " << Valor_ << " con " << dni.Valor_ << '\n';
-  }
-  else
-    CONTADOR++;
+  operar_modo(dni);
   return Valor_ >= dni.Valor_;
 }
 
 bool DNI::operator == (const DNI& dni)
 {
-  if (DNI::MODO)
-  {
-    std::cin.get();
-    std::cout << "Se compara el valor " << Valor_ << " con " << dni.Valor_ << '\n';
-  }
-  else
-    CONTADOR++;
+  operar_modo(dni);
   return Valor_ == dni.Valor_;
+}
+
+void DNI::operar_modo (const DNI& dni)
+{
+  //if (DNI::MODO)
+  //{
+  //  // std::cin.get();
+  //  if (DNI::MODO) std::cout << "Se compara el valor " << Valor_ << " con " << dni.Valor_ << '\n';
+  //}
+  //else
+  //  CONTADOR++;
 }

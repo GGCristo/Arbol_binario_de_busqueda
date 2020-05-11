@@ -8,6 +8,7 @@ class DNI{
     static bool MODO;
     static unsigned CONTADOR;
     DNI();
+    explicit DNI(const unsigned long&);
     void operator = (const int&);
     bool operator < (const DNI&);
     bool operator <= (const DNI&);
@@ -16,5 +17,6 @@ class DNI{
     bool operator == (const DNI&);
     operator unsigned long ()  {return Valor_;}
     operator unsigned long () const  {return Valor_;}
+    void operar_modo (const DNI&);
 };
 #endif
