@@ -20,9 +20,14 @@ class nodoBB
       hijo_l = nullptr;
       hijo_r = nullptr;
     }
+
     ~nodoBB()
     {
+      Valor_ = 0;
+      hijo_l = nullptr;
+      hijo_r = nullptr;
     }
+
     explicit nodoBB(const Clave& Valor) : Valor_(Valor)
     {
       hijo_l = nullptr;
@@ -45,7 +50,6 @@ class nodoBB
         else
         {
           hijo_l = new nodoBB<Clave>(X);
-          std::cout << "He insertado: " << hijo_l->Valor_ << '\n';
         }
       }
       else if (X > Valor_)
@@ -54,7 +58,6 @@ class nodoBB
         else
         {
           hijo_r = new nodoBB<Clave>(X);
-          std::cout << "He insertado: " << hijo_r->Valor_ << '\n';
         }
       }
       else

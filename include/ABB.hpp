@@ -26,8 +26,8 @@ class ABB
 
     void Buscar (Clave X)
     {
-      if (raiz->Buscar(X)) std::cout << "Encontrado" << '\n';
-      else std::cout << "No se encontro" << '\n';
+      if (raiz->Buscar(X)) std::cout << "Encontrado: " << X << '\n';
+      else std::cout << "No se encontro: " << X << '\n';
     }
 
     void Insertar (Clave X)
@@ -35,7 +35,6 @@ class ABB
       if (!raiz)
       {
         raiz = new nodoBB<Clave>(X);
-        std::cout << "He insertado raiz " << raiz->Valor_ << '\n';
       }
       else
       {
@@ -66,29 +65,33 @@ class ABB
       {
         booleano = false;
         vector_l.clear();
-        for (int j = 0; j < vectores[i].size(); j++)
+        for (unsigned j = 0; j < vectores[i].size(); j++)
         {
-          if (vectores[i][j]->hijo_l)
+          if (!vectores[i][j])
           {
-            vector_l.push_back(vectores[i][j]->hijo_l);
-            booleano = true;
+            vector_l.push_back(vectores[i][j]);
+            vector_l.push_back(vectores[i][j]);
           }
-          if (vectores[i][j]->hijo_r)
+          else
           {
+            if (vectores[i][j]->hijo_l || vectores[i][j]->hijo_r)
+            {
+              booleano = true;
+            }
+            vector_l.push_back(vectores[i][j]->hijo_l);
             vector_l.push_back(vectores[i][j]->hijo_r);
-            booleano = true;
           }
         }
         vectores.push_back(vector_l);
       }
-
-      for (int i = 0; i < vectores.size(); i++)
+      vectores.pop_back();
+      for (unsigned i = 0; i < vectores.size(); i++)
       {
         std::cout << "Nivel " << i << ": ";
-        for (int j = 0; j < vectores[i].size(); j++)
+        for (unsigned j = 0; j < vectores[i].size(); j++)
         {
           if (vectores[i][j] == nullptr)
-            std::cout << "." << '\n';
+            std::cout << "." << ' ';
           else
             std::cout << vectores[i][j]->Valor_ << ' ';
         }
