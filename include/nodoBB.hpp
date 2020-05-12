@@ -81,7 +81,7 @@ class nodoBB
         else if (padre->hijo_l && padre->hijo_l->Valor_ == X) padre->hijo_l = nullptr;
         delete this;
       }
-      if ((!hijo_r && hijo_l) || (hijo_r && !hijo_l)) // Si solo tiene un hijo
+      else if ((!hijo_r && hijo_l) || (hijo_r && !hijo_l)) // Si solo tiene un hijo
       {
         if (padre->hijo_r && padre->hijo_r->Valor_ == X)
         {

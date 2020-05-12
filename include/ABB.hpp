@@ -97,6 +97,10 @@ class ABB
 
     std::ostream& write(std::ostream& os)
     {
+      if (!raiz)
+      {
+        std::cout << "Árbol vacío" << '\n';
+      }
       Matrix_de_Niveles<Clave> vectores = Recorrido_nivel();
       for (unsigned i = 0; i < vectores.size(); i++)
       {

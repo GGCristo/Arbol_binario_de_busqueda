@@ -6,6 +6,7 @@
   {
     ABB<DNI> Arbol;
     short opcion;
+    Arbol.write(std::cout);
     do
     {
       std::cout << "|| MODO DEMOSTRACION ||" << '\n';
@@ -13,17 +14,21 @@
       std::cout << "[1] Insertar Clave" << '\n';
       std::cout << "[2] Eliminar Clave" << '\n';
       std::cin >> opcion;
-    } while (opcion != 0 && opcion != 1 && opcion != 2);
+      if (opcion == 1 || opcion == 2)
+      {
+        std::cout << "Escribe el valor" << '\n';
+        unsigned long dato;
+        std::cin >> dato;
+        if (opcion == 1)
+          Arbol.Insertar(dato);
+        else
+          Arbol.Eliminar(dato);
+        Arbol.write(std::cout);
+      }
+      else if (opcion != 0)
+        std::cout << "Esa no es una opción" << '\n';
 
-    Arbol.Insertar(DNI(36));
-  Arbol.Insertar(DNI(16));
-  Arbol.Insertar(DNI(51));
-  Arbol.Insertar(DNI(8));
-  Arbol.Insertar(DNI(41));
-  Arbol.Insertar(DNI(84));
+    } while (opcion);
 
-  Arbol.Eliminar(DNI(51));
-
-  Arbol.write(std::cout);
   return 0;
 }
