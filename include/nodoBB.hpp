@@ -85,9 +85,21 @@ class nodoBB
         {
           if ((!hijo_r && hijo_l) || (hijo_r && !hijo_l)) // Si solo tiene un hijo
           {
-            //if (hijo_r)
-            //  padre = hijo_r;
-            //delete this;
+            if (padre->hijo_r && padre->hijo_r->Valor_ == X)
+            {
+              if (hijo_r)
+                padre->hijo_r = hijo_r;
+              else
+                padre->hijo_r = hijo_l;
+            }
+            else if (padre->hijo_l && padre->hijo_l->Valor_ == X)
+            {
+              if (hijo_r)
+                padre->hijo_l = hijo_r;
+              else
+                padre->hijo_l = hijo_l;
+            }
+            delete this;
           }
         }
       }
