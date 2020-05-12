@@ -104,7 +104,7 @@ class ABB
         for (unsigned j = 0; j < vectores[i].size(); j++)
         {
           if (vectores[i][j] == nullptr)
-            std::cout << "." << ' ';
+            std::cout << "[.]" << ' ';
           else
             std::cout << vectores[i][j]->Valor_ << ' ';
         }
