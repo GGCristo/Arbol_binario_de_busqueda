@@ -4,7 +4,11 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <cassert>
 #include "nodoBB.hpp"
+
+template <typename Clave>
+using Matrix_de_Niveles = std::vector<std::vector<nodoBB<Clave>*>>;
 
 template<typename Clave>
 class ABB
@@ -26,6 +30,7 @@ class ABB
 
     void Buscar (Clave X)
     {
+      assert (raiz);
       if (raiz->Buscar(X)) std::cout << "Encontrado: " << X << '\n';
       else std::cout << "No se encontro: " << X << '\n';
     }
@@ -44,24 +49,26 @@ class ABB
 
     void Eliminar ()
     {
+      assert (raiz);
       raiz->Eliminar();
     }
 
-    void Eliminar (Clave X)
+    void Eliminar (const Clave& X)
     {
-      nodoBB<Clave>* nodo = raiz->Buscar(X);
-      if (nodo == nullptr) std::cout << "No se pudo encontrar y por ende eliminar: " << X << '\n';
-      else nodo->Eliminar(X);
+      assert (raiz);
+      nodoBB<Clave>* padre = raiz;
+      raiz->Eliminar(padre, X);
     }
 
-    std::ostream& write(std::ostream& os)
+    Matrix_de_Niveles<Clave> Recorrido_nivel()
     {
-      std::vector<std::vector<nodoBB<Clave>*>> vectores;
+      Matrix_de_Niveles<Clave> vectores; // Matrix_de_Niveles = std::vector<std::vector<nodoBB<Clave>*>>
       std::vector<nodoBB<Clave>*> vector_l;
+
       vector_l.push_back(raiz);
       vectores.push_back(vector_l);
       bool booleano = true;
-      for (int i = 0; booleano ; i++)
+      for (int i = 0; booleano; i++)
       {
         booleano = false;
         vector_l.clear();
@@ -85,6 +92,12 @@ class ABB
         vectores.push_back(vector_l);
       }
       vectores.pop_back();
+      return vectores;
+    }
+
+    std::ostream& write(std::ostream& os)
+    {
+      Matrix_de_Niveles<Clave> vectores = Recorrido_nivel();
       for (unsigned i = 0; i < vectores.size(); i++)
       {
         std::cout << "Nivel " << i << ": ";

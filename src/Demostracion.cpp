@@ -24,6 +24,7 @@ int Demostracion()
   Arbol.Insertar(DNI(4));
   Arbol.Insertar(DNI(7));
   Arbol.Insertar(DNI(13));
+  Arbol.Eliminar(DNI(13));
 
   Arbol.Buscar(DNI(6));
 

@@ -11,7 +11,6 @@ CFLAGS = -g -pedantic-errors -Wall -Wextra  -std=c++17 -fsanitize=address -stati
 .PHONY: all
 all: $(OBJS)
 	g++ $? -o ../bin/$(BIN)
-	echo $(HEADER)
 
 .PHONY: SFML
 SFML: $(OBJS)
