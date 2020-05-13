@@ -31,8 +31,7 @@ class ABB
     void Buscar (Clave X)
     {
       assert (raiz);
-      if (raiz->Buscar(X)) std::cout << "Encontrado: " << X << '\n';
-      else std::cout << "No se encontro: " << X << '\n';
+      raiz->Buscar(X);
     }
 
     void Insertar (Clave X)
@@ -91,8 +90,8 @@ class ABB
         }
         vectores.push_back(vector_l);
       }
-      vectores.pop_back();
-      return vectores;
+      vectores.pop_back(); // Elimino porque me queda un nivel completo apuntando
+      return vectores;     // a NULL, que no aporta nada.
     }
 
     std::ostream& write(std::ostream& os)

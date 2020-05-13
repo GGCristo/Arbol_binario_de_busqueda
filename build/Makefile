@@ -41,6 +41,9 @@ test: $(TESTBIN)
 Demostracion.o: ../src/Demostracion.cpp ../include/ABB.hpp ../include/nodoBB.hpp
 	g++ -c $< -o $@
 
+Estadistica.o: ../src/Estadistica.cpp ../include/ABB.hpp ../include/nodoBB.hpp
+	g++ -c $< -o $@
+
 ###################################################################
 
 $(BIN).o: ../src/$(BIN).cpp $(HEADER)

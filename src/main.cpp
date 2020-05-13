@@ -2,6 +2,7 @@
 #include "../include/DNI.hpp"
 
 int Demostracion();
+int Estadistica();
 
 bool::DNI::MODO = true;
 unsigned DNI::CONTADOR = 0;
@@ -18,5 +19,7 @@ int main()
   } while (modo != 0 && modo != 1);
 
   if (modo == 0) Demostracion();
+  else Estadistica();
+
   return 0;
 }
