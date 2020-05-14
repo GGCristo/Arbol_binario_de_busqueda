@@ -14,12 +14,10 @@ template<typename Clave>
 class ABB
 {
   private:
-    unsigned int nivel;
     nodoBB<Clave>* raiz;
   public:
     ABB()
     {
-      nivel = 0;
       raiz = nullptr;
     }
 
@@ -28,10 +26,15 @@ class ABB
       Eliminar();
     }
 
-    void Buscar (Clave X)
+    nodoBB<Clave>* Buscar (Clave X, nodoBB<Clave>* nodo = nullptr)
     {
       assert (raiz);
-      raiz->Buscar(X);
+      if (!nodo) nodo = raiz;
+
+      if (X == nodo->Valor_) return nodo;
+      else if (nodo->hijo_l && X < nodo->Valor_) return Buscar(X, nodo->hijo_l);
+      else if (nodo->hijo_r && X > nodo->Valor_) return Buscar(X, nodo->hijo_r);
+      return nullptr;
     }
 
     void Insertar (Clave X)

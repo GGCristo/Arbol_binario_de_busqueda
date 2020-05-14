@@ -20,9 +20,9 @@
         unsigned long dato;
         std::cin >> dato;
         if (opcion == 1)
-          Arbol.Insertar(dato);
+          Arbol.Insertar(DNI(dato));
         else
-          Arbol.Eliminar(dato);
+          Arbol.Eliminar(DNI(dato));
         Arbol.write(std::cout);
       }
       else if (opcion != 0)

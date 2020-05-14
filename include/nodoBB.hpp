@@ -14,6 +14,13 @@ class nodoBB
   Clave Valor_;
   nodoBB<Clave>* hijo_l;
   nodoBB<Clave>* hijo_r;
+  // A donde apunta el padre cuando el hijo muere
+  void apuntar_padre(nodoBB<Clave>*& padre, nodoBB<Clave>* destino, const Clave& X)
+  {
+    if (padre->hijo_r && padre->hijo_r->Valor_ == X) padre->hijo_r = destino;
+    else                                             padre->hijo_l = destino;
+  }
+
   public:
   nodoBB()
   {
@@ -32,14 +39,6 @@ class nodoBB
   {
     hijo_l = nullptr;
     hijo_r = nullptr;
-  }
-
-  nodoBB<Clave>* Buscar(Clave X)
-  {
-    if (Valor_ == X) return this;
-    if (hijo_l && X < Valor_) return hijo_l->Buscar(X);
-    if (hijo_r && X > Valor_) return hijo_r->Buscar(X);
-    return nullptr;
   }
 
   void Insertar(Clave X)
@@ -77,29 +76,20 @@ class nodoBB
     {
       if (!hijo_l && !hijo_r) //nodo_hoja
       {
-        if (padre->hijo_r && padre->hijo_r->Valor_ == X) padre->hijo_r = nullptr;
-        else if (padre->hijo_l && padre->hijo_l->Valor_ == X) padre->hijo_l = nullptr;
+        apuntar_padre(padre, nullptr, X);
         delete this;
       }
-      else if ((!hijo_r && hijo_l) || (hijo_r && !hijo_l)) // Si solo tiene un hijo
+      else if (hijo_r && !hijo_l) // Si solo tiene un hijo
       {
-        if (padre->hijo_r && padre->hijo_r->Valor_ == X)
-        {
-          if (hijo_r)
-            padre->hijo_r = hijo_r;
-          else
-            padre->hijo_r = hijo_l;
-        }
-        else if (padre->hijo_l && padre->hijo_l->Valor_ == X)
-        {
-          if (hijo_r)
-            padre->hijo_l = hijo_r;
-          else
-            padre->hijo_l = hijo_l;
-        }
+        apuntar_padre(padre, hijo_r, X);
         delete this;
       }
-      else if (hijo_l && hijo_r) // Si los dos estan vivos
+      else if (hijo_l && !hijo_r) // Si solo tiene un hijo
+      {
+        apuntar_padre(padre, hijo_l, X);
+        delete this;
+      }
+      else // Si los dos estan vivos
       {
         // Busco el más a la derecha del subarbol izquierdo
         nodoBB<Clave>* maximo = hijo_l;
@@ -110,31 +100,24 @@ class nodoBB
     }
     // Busqueda
     else if (hijo_l && X < Valor_)
-    {
-      padre = this;
-      hijo_l->Eliminar(padre, X);
-    }
+      hijo_l->Eliminar(this, X);
+
     else if (hijo_r && X > Valor_)
-    {
-      padre = this;
-      hijo_r->Eliminar(padre, X);
-    }
+      hijo_r->Eliminar(this, X);
+
     else
     {
       std::cout << "No se ha encontrado y por ende no se puede eliminar" << '\n';
     }
   }
-  void Buscar_derecha (nodoBB<Clave>* nodo)
+
+  void Buscar_derecha (nodoBB<Clave>*& nodo)
   {
     while (nodo->hijo_r)
-    {
       nodo = nodo->hijo_r;
-    }
-    if (hijo_l && hijo_l->hijo_r)
-    {
-      nodo = hijo_l->hijo_r;
-      Buscar_derecha(nodo);
-    }
+
+    if (nodo->hijo_l && nodo->hijo_l->hijo_r)
+      Buscar_derecha(nodo->hijo_l->hijo_r);
   }
 };
 
