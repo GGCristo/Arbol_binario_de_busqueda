@@ -53,7 +53,7 @@ void DNI::operar_modo (const DNI& dni)
   if (DNI::MODO)
   {
     // std::cin.get();
-    if (DNI::MODO) std::cout << "Se compara el valor " << Valor_ << " con " << dni.Valor_ << '\n';
+    // if (DNI::MODO) std::cout << "Se compara el valor " << Valor_ << " con " << dni.Valor_ << '\n';
   }
   else
     CONTADOR++;

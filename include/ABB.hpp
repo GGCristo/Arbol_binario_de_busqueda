@@ -26,6 +26,8 @@ class ABB
       Eliminar();
     }
 
+    nodoBB<Clave>* get_raiz(){return raiz;}
+
     nodoBB<Clave>* Buscar (Clave X, nodoBB<Clave>* nodo = nullptr)
     {
       assert (raiz);
@@ -117,6 +119,26 @@ class ABB
           std::cout << '\n';
       }
       return os;
+    }
+    const bool Equilibrado() {
+      return EquilibrioRama(raiz); }
+
+    const bool EquilibrioRama(nodoBB<Clave>* nodo) {
+      if (nodo == NULL) return true ;
+      int eq = TamRama(nodo->hijo_l) - TamRama(nodo->hijo_r);
+      switch (eq) {
+        case -1:
+        case 0:
+        case 1:
+          return EquilibrioRama(nodo->hijo_l) &&
+            EquilibrioRama(nodo->hijo_r);
+        default: return false;
+      }
+    }
+    const int Tam() { return TamRama(raiz); }
+    const int TamRama(nodoBB<Clave>* nodo) {
+      if (nodo == NULL) return 0 ;
+      return (1 + TamRama(nodo->hijo_l) + TamRama(nodo->hijo_r) );
     }
 };
 
