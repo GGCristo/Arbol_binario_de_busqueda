@@ -22,7 +22,8 @@ class AVL
 
     ~AVL()
     {
-      root->Eliminar();
+      if (root)
+        root->Eliminar();
     }
 
     nodoAVL<Clave>* Buscar (Clave X, nodoAVL<Clave>* nodo = nullptr)
@@ -113,7 +114,7 @@ class AVL
 
     void Insertar(const Clave& X)
     {
-      nodoAVL<Clave>* nuevo = new nodoAVL<Clave> (X, 0); // ???
+      nodoAVL<Clave>* nuevo = new nodoAVL<Clave> (X, 0);
       bool crece = false;
       insertar_bal(root, nuevo, crece);
     }
@@ -130,12 +131,18 @@ class AVL
         insertar_bal(nodo->left, nuevo, crece);
         if (crece) insert_re_balancea_izda(nodo, crece);
       }
-      else
+      else if (nuevo->Valor_ > nodo->Valor_)
       {
         insertar_bal(nodo->right, nuevo, crece);
         if (crece) insert_re_balancea_dcha(nodo, crece);
       }
+      else
+      {
+        std::cout << "Se intento insertar " << nuevo->Valor_ << " pero ya estaba" << '\n';
+        delete nuevo;
+      }
     }
+
     void insert_re_balancea_izda(nodoAVL<Clave>*& nodo, bool& crece)
     {
       switch (nodo->bal) {
@@ -158,7 +165,8 @@ class AVL
 
     void insert_re_balancea_dcha(nodoAVL<Clave>*& nodo, bool& crece)
     {
-      switch (nodo->bal) {
+      switch (nodo->bal)
+      {
         case 1:
           nodo->bal = 0;
           crece = false;
@@ -176,7 +184,8 @@ class AVL
       }
     }
 
-    void eliminar(const Clave& X) {
+    void eliminar(const Clave& X)
+    {
       bool decrece = false;
       elimina_rama(root, X, decrece);
     }
@@ -184,33 +193,51 @@ class AVL
     void elimina_rama(nodoAVL<Clave>*& nodo, const Clave& ClaveDada, bool& decrece)
     {
       if (!nodo) return;
-      if (ClaveDada < nodo->Valor_) {
+      if (ClaveDada < nodo->Valor_)
+      {
         elimina_rama(nodo->left, ClaveDada, decrece);
-        if (decrece) eliminar_re_balancea_izda(nodo, decrece);
-      } else if (ClaveDada > nodo->Valor_) {
+        if (decrece)
+          eliminar_re_balancea_izda(nodo, decrece);
+      }
+      else if (ClaveDada > nodo->Valor_)
+      {
         elimina_rama(nodo->right, ClaveDada, decrece);
-        if (decrece) eliminar_re_balancea_dcha(nodo, decrece);
-      } else {  // nodo->Valor_ == ClaveDada(encontrado)
+        if (decrece)
+          eliminar_re_balancea_dcha(nodo, decrece);
+      }
+      else // nodo->Valor_ == ClaveDada(encontrado)
+      {
         nodoAVL<Clave>* Eliminado = nodo;
-        if (nodo->left == NULL) {
+        if (nodo->left == NULL)
+        {
           nodo = nodo->right;
           decrece = true;
-        } else if (nodo->right == NULL) {
+        }
+        else if (nodo->right == NULL)
+        {
           nodo = nodo->left;
           decrece = true;
-        } else {
-          sustituye(Eliminado, nodo->left, decrece);
-          if (decrece) eliminar_re_balancea_izda(nodo, decrece);
         }
+        else
+        {
+          sustituye(Eliminado, nodo->left, decrece);
+          if (decrece)
+            eliminar_re_balancea_izda(nodo, decrece);
+        }
+        delete Eliminado;
       }
     }
 
     void sustituye(nodoAVL<Clave>*& eliminado, nodoAVL<Clave>*& sust, bool& decrece)
     {
-      if (sust->right != NULL) {
+      if (sust->right != NULL)
+      {
         sustituye(eliminado, sust->right, decrece);
-        if (decrece) eliminar_re_balancea_dcha(sust, decrece);
-      } else {
+        if (decrece)
+          eliminar_re_balancea_dcha(sust, decrece);
+      }
+      else
+      {
         eliminado->Valor_ = sust->Valor_;
         eliminado = sust;
         sust = sust->left;
@@ -220,15 +247,15 @@ class AVL
 
     void eliminar_re_balancea_izda (nodoAVL<Clave>*& nodo, bool& decrece)
     {
-      switch(nodo->bal)
+      switch (nodo->bal)
       {
         case -1:
           {
             nodoAVL<Clave>* nodo1 = nodo->right;
-            if(nodo1->bal > 0) rotacion_DI(nodo);
+            if (nodo1->bal > 0) rotacion_DI(nodo);
             else
             {
-              if(nodo1->bal == 0)
+              if (nodo1->bal == 0)
                 decrece = false;
               rotacion_DD(nodo);
             }
