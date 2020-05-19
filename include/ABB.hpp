@@ -13,7 +13,7 @@ using Matrix_de_Niveles = std::vector<std::vector<nodoBB<Clave>*>>;
 template<typename Clave>
 class ABB
 {
-  private:
+  protected:
     nodoBB<Clave>* raiz;
   public:
     ABB()
@@ -39,7 +39,7 @@ class ABB
       return nullptr;
     }
 
-    void Insertar (Clave X)
+    virtual void Insertar (Clave X)
     {
       if (!raiz)
       {
@@ -120,26 +120,26 @@ class ABB
       }
       return os;
     }
-    const bool Equilibrado() {
-      return EquilibrioRama(raiz); }
+    // const bool Equilibrado() {
+    //   return EquilibrioRama(raiz); }
 
-    const bool EquilibrioRama(nodoBB<Clave>* nodo) {
-      if (nodo == NULL) return true ;
-      int eq = TamRama(nodo->hijo_l) - TamRama(nodo->hijo_r);
-      switch (eq) {
-        case -1:
-        case 0:
-        case 1:
-          return EquilibrioRama(nodo->hijo_l) &&
-            EquilibrioRama(nodo->hijo_r);
-        default: return false;
-      }
-    }
-    const int Tam() { return TamRama(raiz); }
-    const int TamRama(nodoBB<Clave>* nodo) {
-      if (nodo == NULL) return 0 ;
-      return (1 + TamRama(nodo->hijo_l) + TamRama(nodo->hijo_r) );
-    }
+    // const bool EquilibrioRama(nodoBB<Clave>* nodo) {
+    //   if (nodo == NULL) return true ;
+    //   int eq = TamRama(nodo->hijo_l) - TamRama(nodo->hijo_r);
+    //   switch (eq) {
+    //     case -1:
+    //     case 0:
+    //     case 1:
+    //       return EquilibrioRama(nodo->hijo_l) &&
+    //         EquilibrioRama(nodo->hijo_r);
+    //     default: return false;
+    //   }
+    // }
+    // const int Tam() { return TamRama(raiz); }
+    // const int TamRama(nodoBB<Clave>* nodo) {
+    //   if (nodo == NULL) return 0 ;
+    //   return (1 + TamRama(nodo->hijo_l) + TamRama(nodo->hijo_r) );
+    // }
 };
 
 #endif

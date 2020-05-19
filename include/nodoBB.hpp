@@ -10,7 +10,7 @@ template<class Clave>
 class nodoBB
 {
   friend class ABB<Clave>;
-  private:
+  protected:
   Clave Valor_;
   nodoBB<Clave>* hijo_l;
   nodoBB<Clave>* hijo_r;

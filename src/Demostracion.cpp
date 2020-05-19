@@ -4,7 +4,7 @@
 
   int Demostracion()
   {
-    ABB<DNI> Arbol;
+    AVL<DNI> Arbol;
     short opcion;
     Arbol.write(std::cout);
     do
@@ -13,7 +13,6 @@
       std::cout << "[0] Salir" << '\n';
       std::cout << "[1] Insertar Clave" << '\n';
       std::cout << "[2] Eliminar Clave" << '\n';
-      std::cout << "[3] Balanceado?" << '\n';
       std::cin >> opcion;
       if (opcion == 1 || opcion == 2)
       {
@@ -23,15 +22,7 @@
         if (opcion == 1)
           Arbol.Insertar(DNI(dato));
         else if (opcion == 2)
-          Arbol.Eliminar(DNI(dato));
-        Arbol.write(std::cout);
-      }
-      else if (opcion == 3)
-      {
-        if (Arbol.Equilibrado())
-          std::cout << "Esta equilibrada" << '\n';
-        else
-          std::cout << "No esta equilibrada" << '\n';
+          Arbol.eliminar(DNI(dato));
         Arbol.write(std::cout);
       }
       else if (opcion != 0)
