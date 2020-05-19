@@ -34,14 +34,14 @@ int Estadistica()
   unsigned long int B_maximo = 0, CONTADOR_B = 0, B_minimo = 9999999999;
   unsigned long int I_maximo = 0, CONTADOR_I = 0, I_minimo = 9999999999;
 
-  //for (unsigned i = 0; i < nPrueba; i++)
-  //{
-  //  Arbol.Buscar(Banco_de_Pruebas[rand() % N]);
-  //  if (DNI::CONTADOR > B_maximo) B_maximo = DNI::CONTADOR;
-  //  if (DNI::CONTADOR < B_minimo) B_minimo = DNI::CONTADOR;
-  //  CONTADOR_B += DNI::CONTADOR;
-  //  DNI::CONTADOR = 0;
-  //}
+  for (unsigned i = 0; i < nPrueba; i++)
+  {
+    Arbol.Buscar(Banco_de_Pruebas[rand() % N]);
+    if (DNI::CONTADOR > B_maximo) B_maximo = DNI::CONTADOR;
+    if (DNI::CONTADOR < B_minimo) B_minimo = DNI::CONTADOR;
+    CONTADOR_B += DNI::CONTADOR;
+    DNI::CONTADOR = 0;
+  }
   for (unsigned i = 0; i < nPrueba; i++)
   {
     Arbol.Insertar(Banco_de_Pruebas[N + (rand() % N)]);

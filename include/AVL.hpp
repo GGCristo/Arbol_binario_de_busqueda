@@ -1,7 +1,10 @@
 #ifndef _AVL_
 #define _AVL_
-#include "nodoAVL.hpp"
+
 #include <vector>
+#include <cassert>
+
+#include "nodoAVL.hpp"
 
 template <class Clave>
 using Matrix_de_Niveles = std::vector<std::vector<nodoAVL<Clave>*>>;
@@ -15,6 +18,22 @@ class AVL
     AVL()
     {
       root = nullptr;
+    }
+
+    ~AVL()
+    {
+      root->Eliminar();
+    }
+
+    nodoAVL<Clave>* Buscar (Clave X, nodoAVL<Clave>* nodo = nullptr)
+    {
+      assert (root);
+      if (!nodo) nodo = root;
+
+      if (X == nodo->Valor_) return nodo;
+      else if (nodo->left && X < nodo->Valor_) return Buscar(X, nodo->left);
+      else if (nodo->right && X > nodo->Valor_) return Buscar(X, nodo->right);
+      return nullptr;
     }
 
     void rotacion_II (nodoAVL<Clave>*& nodo)
@@ -55,7 +74,7 @@ class AVL
     void rotacion_ID (nodoAVL<Clave>*& nodo)
     {
       nodoAVL<Clave>* nodo1 = nodo->left;
-      nodoAVL<Clave>* nodo2 = nodo->right;
+      nodoAVL<Clave>* nodo2 = nodo1->right;
       nodo->left = nodo2->right;
       nodo2->right = nodo;
       nodo1->right = nodo2->left;
@@ -75,7 +94,7 @@ class AVL
     void rotacion_DI (nodoAVL<Clave>*& nodo)
     {
       nodoAVL<Clave>* nodo1 = nodo->right;
-      nodoAVL<Clave>* nodo2 = nodo->left;
+      nodoAVL<Clave>* nodo2 = nodo1->left;
       nodo->right = nodo2->left;
       nodo2->left = nodo;
       nodo1->left = nodo2->right;
@@ -162,7 +181,7 @@ class AVL
       elimina_rama(root, X, decrece);
     }
 
-    void elimina_rama(nodoAVL<Clave>*& nodo, int ClaveDada, bool& decrece)
+    void elimina_rama(nodoAVL<Clave>*& nodo, const Clave& ClaveDada, bool& decrece)
     {
       if (!nodo) return;
       if (ClaveDada < nodo->Valor_) {

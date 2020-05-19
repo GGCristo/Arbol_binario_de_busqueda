@@ -15,12 +15,17 @@ class nodoAVL
     nodoAVL<Clave>* left;
     nodoAVL<Clave>* right;
   public:
-    nodoAVL(const Clave& Valor = 0, const int& bal_ = 0)
+    nodoAVL(const Clave& Valor = 0, const int& bal_ = 0) : Valor_(Valor)
     {
-      Valor_ = Valor;
       bal = bal_;
       left = nullptr;
       right = nullptr;
+    }
+    void Eliminar()
+    {
+      if (left) left->Eliminar();
+      if (right) right->Eliminar();
+      delete this;
     }
 };
 #endif // _nodoAVL_
