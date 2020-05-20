@@ -10,6 +10,7 @@ CFLAGS = -g -pedantic-errors -Wall -Wextra  -std=c++17 -fsanitize=address -stati
 
 .PHONY: all
 all: $(OBJS)
+	mkdir -p bin
 	g++ $? -o bin/$(BIN)
 
 .PHONY: SFML
@@ -30,6 +31,7 @@ clean:
 
 .PHONY: test
 test: $(TESTBIN)
+	mkdir -p bin
 	./bin/test
 
 bin/%: test/%.cpp test/catch.hpp $(SRC)
