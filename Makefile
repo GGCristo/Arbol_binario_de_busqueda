@@ -31,10 +31,10 @@ clean:
 
 .PHONY: test
 test: $(TESTBIN)
-	mkdir -p bin
 	./bin/test
 
 bin/%: test/%.cpp test/catch.hpp $(SRC)
+	mkdir -p bin
 	g++ -std=c++11 src/DNI.cpp $< -o $@
 
 #build/(NOMBRE).o: src/(NOMBRE).cpp include/(NOMBRE).hpp include/.hpp
