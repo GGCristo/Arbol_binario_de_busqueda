@@ -14,28 +14,6 @@ class AVL
 {
   private:
     nodoAVL<Clave>* root;
-  public:
-    AVL()
-    {
-      root = nullptr;
-    }
-
-    ~AVL()
-    {
-      if (root)
-        root->Eliminar();
-    }
-
-    nodoAVL<Clave>* Buscar (Clave X, nodoAVL<Clave>* nodo = nullptr)
-    {
-      assert (root);
-      if (!nodo) nodo = root;
-
-      if (X == nodo->Valor_) return nodo;
-      else if (nodo->left && X < nodo->Valor_) return Buscar(X, nodo->left);
-      else if (nodo->right && X > nodo->Valor_) return Buscar(X, nodo->right);
-      return nullptr;
-    }
 
     void rotacion_II (nodoAVL<Clave>*& nodo)
     {
@@ -111,85 +89,6 @@ class AVL
       nodo2->bal = 0;
       nodo = nodo2;
     }
-
-    void Insertar(const Clave& X)
-    {
-      nodoAVL<Clave>* nuevo = new nodoAVL<Clave> (X, 0);
-      bool crece = false;
-      insertar_bal(root, nuevo, crece);
-    }
-
-    void insertar_bal(nodoAVL<Clave>*& nodo, nodoAVL<Clave>* nuevo, bool& crece)
-    {
-      if (!nodo)
-      {
-        nodo = nuevo;
-        crece = true;
-      }
-      else if (nuevo->Valor_ < nodo->Valor_)
-      {
-        insertar_bal(nodo->left, nuevo, crece);
-        if (crece) insert_re_balancea_izda(nodo, crece);
-      }
-      else if (nuevo->Valor_ > nodo->Valor_)
-      {
-        insertar_bal(nodo->right, nuevo, crece);
-        if (crece) insert_re_balancea_dcha(nodo, crece);
-      }
-      else
-      {
-        std::cout << "Se intento insertar " << nuevo->Valor_ << " pero ya estaba" << '\n';
-        delete nuevo;
-      }
-    }
-
-    void insert_re_balancea_izda(nodoAVL<Clave>*& nodo, bool& crece)
-    {
-      switch (nodo->bal) {
-        case -1:
-          nodo->bal = 0;
-          crece = false;
-          break;
-        case 0:
-          nodo->bal = 1;
-          break;
-        case 1:
-          nodoAVL<Clave>* nodo1 = nodo->left;
-          if (nodo1->bal == 1)
-            rotacion_II(nodo);
-          else
-            rotacion_ID(nodo);
-          crece = false;
-      }
-    }
-
-    void insert_re_balancea_dcha(nodoAVL<Clave>*& nodo, bool& crece)
-    {
-      switch (nodo->bal)
-      {
-        case 1:
-          nodo->bal = 0;
-          crece = false;
-          break;
-        case 0:
-          nodo->bal = -1;
-          break;
-        case -1:
-          nodoAVL<Clave>* nodo1 = nodo->right;
-          if (nodo1->bal == -1)
-            rotacion_DD(nodo);
-          else
-            rotacion_DI(nodo);
-          crece = false;
-      }
-    }
-
-    void eliminar(const Clave& X)
-    {
-      bool decrece = false;
-      elimina_rama(root, X, decrece);
-    }
-
     void elimina_rama(nodoAVL<Clave>*& nodo, const Clave& ClaveDada, bool& decrece)
     {
       if (!nodo) return;
@@ -339,6 +238,109 @@ class AVL
       }
       vectores.pop_back(); // Elimino porque me queda un nivel completo apuntando
       return vectores;     // a NULL, que no aporta nada.
+    }
+
+    void insertar_bal(nodoAVL<Clave>*& nodo, nodoAVL<Clave>* nuevo, bool& crece)
+    {
+      if (!nodo)
+      {
+        nodo = nuevo;
+        crece = true;
+      }
+      else if (nuevo->Valor_ < nodo->Valor_)
+      {
+        insertar_bal(nodo->left, nuevo, crece);
+        if (crece) insert_re_balancea_izda(nodo, crece);
+      }
+      else if (nuevo->Valor_ > nodo->Valor_)
+      {
+        insertar_bal(nodo->right, nuevo, crece);
+        if (crece) insert_re_balancea_dcha(nodo, crece);
+      }
+      else
+      {
+        std::cout << "Se intento insertar " << nuevo->Valor_ << " pero ya estaba" << '\n';
+        delete nuevo;
+      }
+    }
+
+    void insert_re_balancea_izda(nodoAVL<Clave>*& nodo, bool& crece)
+    {
+      switch (nodo->bal) {
+        case -1:
+          nodo->bal = 0;
+          crece = false;
+          break;
+        case 0:
+          nodo->bal = 1;
+          break;
+        case 1:
+          nodoAVL<Clave>* nodo1 = nodo->left;
+          if (nodo1->bal == 1)
+            rotacion_II(nodo);
+          else
+            rotacion_ID(nodo);
+          crece = false;
+      }
+    }
+
+    void insert_re_balancea_dcha(nodoAVL<Clave>*& nodo, bool& crece)
+    {
+      switch (nodo->bal)
+      {
+        case 1:
+          nodo->bal = 0;
+          crece = false;
+          break;
+        case 0:
+          nodo->bal = -1;
+          break;
+        case -1:
+          nodoAVL<Clave>* nodo1 = nodo->right;
+          if (nodo1->bal == -1)
+            rotacion_DD(nodo);
+          else
+            rotacion_DI(nodo);
+          crece = false;
+      }
+    }
+
+  public:
+    AVL()
+    {
+      root = nullptr;
+    }
+
+    ~AVL()
+    {
+      if (root)
+        root->Eliminar();
+    }
+
+    nodoAVL<Clave>* Buscar (Clave X, nodoAVL<Clave>* nodo = nullptr)
+    {
+      if (!root) return nullptr;
+      if (!nodo) nodo = root;
+
+      if (X == nodo->Valor_) return nodo;
+      else if (nodo->left && X < nodo->Valor_) return Buscar(X, nodo->left);
+      else if (nodo->right && X > nodo->Valor_) return Buscar(X, nodo->right);
+      return nullptr;
+    }
+
+
+    void Insertar(const Clave& X)
+    {
+      nodoAVL<Clave>* nuevo = new nodoAVL<Clave> (X, 0);
+      bool crece = false;
+      insertar_bal(root, nuevo, crece);
+    }
+
+
+    void eliminar(const Clave& X)
+    {
+      bool decrece = false;
+      elimina_rama(root, X, decrece);
     }
 
     std::ostream& write(std::ostream& os)

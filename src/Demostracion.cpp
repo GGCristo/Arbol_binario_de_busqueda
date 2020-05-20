@@ -5,6 +5,7 @@
 int Demostracion()
 {
   AVL<DNI> Arbol;
+  Arbol.Buscar(DNI(4));
   short opcion;
   Arbol.write(std::cout);
   do
