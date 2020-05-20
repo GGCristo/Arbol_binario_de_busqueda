@@ -9,7 +9,7 @@ unsigned DNI::CONTADOR = 0;
 
 int main()
 {
-  bool modo;
+  short modo;
   do
   {
     std::cout << "Elija el modo" << std::endl;
@@ -19,7 +19,7 @@ int main()
   } while (modo != 0 && modo != 1);
 
   if (modo == 0) Demostracion();
-  else Estadistica();
+  else           Estadistica();
 
   return 0;
 }
