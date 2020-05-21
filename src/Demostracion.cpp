@@ -10,6 +10,7 @@ int Demostracion()
   Arbol.write(std::cout);
   do
   {
+    std::cout << "Traza de AVL Cristo García González" << '\n';
     std::cout << "|| MODO DEMOSTRACION ||" << '\n';
     std::cout << "[0] Salir" << '\n';
     std::cout << "[1] Insertar Clave" << '\n';
